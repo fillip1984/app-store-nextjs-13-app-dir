@@ -1,12 +1,9 @@
+import { prisma } from "@/prisma/globalPrismaClient";
 import { Application } from "@prisma/client";
 
 async function getApplications() {
-  const response = await fetch("/api/applications");
-  if (!response.ok) {
-    throw new Error("Failed to fetch applications");
-  }
-
-  return response.json();
+  const applications = prisma.application.findMany();
+  return applications;
 }
 
 const ApplicationList = async () => {
