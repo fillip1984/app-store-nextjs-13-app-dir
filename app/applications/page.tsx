@@ -1,6 +1,6 @@
 import React from "react";
-import SearchAdd from "./SearchAdd";
-import ApplicationList from "./ApplicationList";
+import SearchAdd from "./(components)/SearchAdd";
+import ApplicationList from "./(components)/ApplicationList";
 
 const ApplicationHome = () => {
   return (

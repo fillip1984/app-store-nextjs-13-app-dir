@@ -1,5 +1,6 @@
 import { prisma } from "@/prisma/globalPrismaClient";
 import { Application } from "@prisma/client";
+import ApplicationCard from "./ApplicationCard";
 
 async function getApplications() {
   const applications = prisma.application.findMany();
@@ -10,10 +11,9 @@ const ApplicationList = async () => {
   const applications: Application[] = await getApplications();
 
   return (
-    <div>
-      <h3>test</h3>
+    <div className="flex flex-col gap-2 mt-2 mb-24">
       {applications.map((application) => (
-        <div key={application.id}>{application.name}</div>
+        <ApplicationCard key={application.id} application={application} />
       ))}
     </div>
   );

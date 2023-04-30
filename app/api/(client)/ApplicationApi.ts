@@ -17,7 +17,7 @@ export const getApplications = async () => {
 };
 
 //read one
-export const getApplication = async (id: number) => {
+export const getApplication = async (id: string) => {
   const result = await fetch(`/api/applications/${id}`);
   return await result.json();
 };
@@ -32,7 +32,8 @@ export const updateApplication = async (application: Application) => {
 };
 
 //delete
-export const deleteApplication = async (id: number) => {
+export const deleteApplication = async (id: string) => {
+  console.log("id", id);
   const result = await fetch(`/api/applications/${id}`, {
     method: "DELETE",
   });

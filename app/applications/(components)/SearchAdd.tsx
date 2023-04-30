@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FormEvent, useState, useTransition } from "react";
-import { createApplication } from "../api/(apiClients)/Applications";
+import { createApplication } from "../../api/(client)/ApplicationApi";
 
 const SearchAdd = () => {
   const router = useRouter();
@@ -12,12 +12,12 @@ const SearchAdd = () => {
 
   const [search, setSearch] = useState("");
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (search.length > 0) {
       // TODO: update as mutation RFC gets released: https://beta.nextjs.org/docs/data-fetching/mutating
       setIsFetching(true);
-      createApplication({ name: search });
+      const response = await createApplication({ name: search });
       setSearch("");
       setIsFetching(false);
 
