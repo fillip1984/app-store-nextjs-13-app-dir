@@ -1,8 +1,14 @@
 "use client";
 
-import { getApplication } from "@/app/api/(client)/ApplicationApi";
+import {
+  getApplication,
+  updateApplication,
+} from "@/app/api/(client)/ApplicationApi";
 import { Application } from "@prisma/client";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, useTransition } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 interface PageContextProps {
   params: {
@@ -27,21 +33,93 @@ export default function ApplicationDetailPage(context: PageContextProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //   const fetchData = async () => {
-  //     const app = await getApplication(id);
-  //     console.log(app);
-  //     setApplication(app);
-  //     setLoading(false);
-  //   };
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [isFetching, setIsFetching] = useState(false);
+  const isMutating = isFetching || isPending;
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<Application>();
+  const onSubmit: SubmitHandler<Application> = async (formData) => {
+    // TODO: update as mutation RFC gets released: https://beta.nextjs.org/docs/data-fetching/mutating
+    setIsFetching(true);
+    const response = await updateApplication({ ...formData, id });
+    setIsFetching(false);
+
+    startTransition(() => {
+      // Refresh the current route:
+      // - Makes a new request to the server for the route
+      // - Re-fetches data requests and re-renders Server Components
+      // - Sends the updated React Server Component payload to the client
+      // - The client merges the payload without losing unaffected
+      //   client-side React state or browser state
+      router.refresh();
+      router.push("/applications");
+
+      // Note: If fetch requests are cached, the updated data will
+      // produce the same result.});
+    });
+  };
 
   return (
     <>
       {isLoading && <div></div>}
 
       {!isLoading && (
-        <div>
-          <h2>{application?.name}</h2>
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="p-4">
+          <div className="form-control w-full">
+            <label className="label">Name</label>
+            <input
+              type="text"
+              {...register("name", {
+                required: "Field is required",
+                minLength: {
+                  value: 4,
+                  message: "Field must be 4 or more characters",
+                },
+              })}
+              defaultValue={application?.name}
+              className="input input-bordered"
+            />
+            {errors.name && (
+              <span className="label-text-alt text-red-400">
+                {errors.name.message}
+              </span>
+            )}
+          </div>
+
+          <div className="form-control">
+            <label className="label">Description</label>
+            <textarea
+              className="textarea textarea-bordered"
+              {...register("description", {
+                required: "Field is required",
+                minLength: {
+                  value: 20,
+                  message: "Field must be 20 or more characters",
+                },
+              })}
+              defaultValue={application?.description}
+            />
+            {errors.description && (
+              <span className="label-text-alt text-red-400">
+                {errors.description.message}
+              </span>
+            )}
+          </div>
+
+          <div className="flex gap-2 my-2">
+            <button type="submit" className="btn btn-primary">
+              Save
+            </button>
+            <Link href="/applications" className="btn btn-outline">
+              Cancel
+            </Link>
+          </div>
+        </form>
       )}
     </>
   );
