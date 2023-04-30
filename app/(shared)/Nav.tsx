@@ -22,8 +22,8 @@ const Nav = () => {
   };
 
   return (
-    <div className="flex justify-between py-2 px-4 items-center">
-      <h3 className="brand">App Store</h3>
+    <div className="bg-primary flex justify-between py-2 px-4 items-center">
+      <h3 className="brand font-bold">App Store</h3>
       <div className="nav-right flex gap-1">
         <button className="btn btn-sm" onClick={handleThemeChange}>
           <MdOutlinePalette size={28} />

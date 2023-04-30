@@ -3,8 +3,7 @@ import SearchAdd from "./SearchAdd";
 
 const ApplicationHome = () => {
   return (
-    <div>
-      <h3>Applications</h3>
+    <div className="container p-4 mx-auto">
       <SearchAdd />
     </div>
   );
