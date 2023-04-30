@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma-generate": "prisma generate",
+    "prisma-migrate-dev": "prisma migrate dev",
+    "prisma-studio": "prisma studio",
+    "update-packages": "npx npm-check-updates"
   },
   "dependencies": {
     "@types/node": "18.16.3",
