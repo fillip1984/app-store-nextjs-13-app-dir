@@ -7,20 +7,20 @@ export const createApplication = async (application: Partial<Application>) => {
     method: "POST",
     body: JSON.stringify(application),
   });
-  return await result.json();
+  return (await result.json()) as Application;
 };
 
 //read all
 export const getApplications = async () => {
   const result = await fetch("/api/applications");
-  return await result.json();
+  return (await result.json()) as Application[];
 };
 
 //read one
-export const getApplication = async (id: string) => {
+export async function getApplication(id: string) {
   const result = await fetch(`/api/applications/${id}`);
-  return await result.json();
-};
+  return result;
+}
 
 //update
 export const updateApplication = async (application: Application) => {
@@ -28,7 +28,7 @@ export const updateApplication = async (application: Application) => {
     method: "PUT",
     body: JSON.stringify(application),
   });
-  return await result.json();
+  return (await result.json()) as Application;
 };
 
 //delete
@@ -37,5 +37,5 @@ export const deleteApplication = async (id: string) => {
   const result = await fetch(`/api/applications/${id}`, {
     method: "DELETE",
   });
-  return await result.json();
+  return (await result.json()) as boolean;
 };

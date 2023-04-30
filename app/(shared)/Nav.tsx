@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect } from "react";
 import { MdOutlinePalette } from "react-icons/md";
 import { useLocalStorage } from "usehooks-ts";
@@ -23,7 +24,9 @@ const Nav = () => {
 
   return (
     <div className="bg-primary flex justify-between py-2 px-4 items-center">
-      <h3 className="brand font-bold">App Store</h3>
+      <Link href="/" className="brand font-bold">
+        <h3>App Store</h3>
+      </Link>
       <div className="nav-right flex gap-1">
         <button className="btn btn-sm" onClick={handleThemeChange}>
           <MdOutlinePalette size={28} />

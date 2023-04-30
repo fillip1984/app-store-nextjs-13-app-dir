@@ -2,7 +2,7 @@ import React from "react";
 import SearchAdd from "./(components)/SearchAdd";
 import ApplicationList from "./(components)/ApplicationList";
 
-const ApplicationHome = () => {
+const ApplicationHomePage = () => {
   return (
     <div className="container p-4 mx-auto">
       <SearchAdd />
@@ -13,4 +13,4 @@ const ApplicationHome = () => {
   );
 };
 
-export default ApplicationHome;
+export default ApplicationHomePage;

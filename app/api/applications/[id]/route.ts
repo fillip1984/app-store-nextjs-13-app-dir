@@ -2,13 +2,12 @@ import { prisma } from "@/prisma/globalPrismaClient";
 import { Application } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-interface ContextProps {
+interface ApiContextProps {
   params: { id: string };
 }
 
-export const GET = async (request: Request, context: ContextProps) => {
-  console.log("context", context);
-  const id = "0";
+export const GET = async (request: Request, context: ApiContextProps) => {
+  const { id } = context.params;
   const result = await prisma.application.findFirst({
     where: {
       id,
@@ -17,10 +16,9 @@ export const GET = async (request: Request, context: ContextProps) => {
   return NextResponse.json(result);
 };
 
-export const PUT = async (request: Request, context: ContextProps) => {
+export const PUT = async (request: Request, context: ApiContextProps) => {
+  const { id } = context.params;
   const { name, description }: Partial<Application> = await request.json();
-  console.log("context", context);
-  const id = "0";
   const result = await prisma.application.update({
     where: {
       id,
@@ -34,7 +32,7 @@ export const PUT = async (request: Request, context: ContextProps) => {
   return NextResponse.json(result);
 };
 
-export const DELETE = async (request: Request, context: ContextProps) => {
+export const DELETE = async (request: Request, context: ApiContextProps) => {
   const { id } = context.params;
   const result = await prisma.application.delete({
     where: {

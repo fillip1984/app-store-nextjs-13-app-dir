@@ -2,6 +2,7 @@
 
 import { deleteApplication } from "@/app/api/(client)/ApplicationApi";
 import { Application } from "@prisma/client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState, useTransition } from "react";
 
@@ -38,7 +39,9 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
     });
   };
   return (
-    <div className="card bg-base-300 shadow-xl">
+    <Link
+      href={`/applications/${application.id}`}
+      className="card bg-base-300 shadow-xl">
       <div className="card-body">
         <h4 className="card-title">{application.name}</h4>
         <p>{application.description}</p>
@@ -51,7 +54,7 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
