@@ -34,3 +34,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# prisma
+db.sqlite
+db.sqlite-journal
+
+# vs code
+settings.json
