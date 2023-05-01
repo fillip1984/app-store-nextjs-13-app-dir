@@ -11,9 +11,10 @@ datasource db {
 }
 
 model Application {
-  id          String   @id @default(cuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
-  name        String
-  description String
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+  name          String
+  description   String
+  repositoryUrl String?
 }

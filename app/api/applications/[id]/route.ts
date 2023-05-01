@@ -18,7 +18,8 @@ export const GET = async (request: Request, context: ApiContextProps) => {
 
 export const PUT = async (request: Request, context: ApiContextProps) => {
   const { id } = context.params;
-  const { name, description }: Partial<Application> = await request.json();
+  const { name, description, repositoryUrl }: Partial<Application> =
+    await request.json();
   const result = await prisma.application.update({
     where: {
       id,
@@ -26,6 +27,7 @@ export const PUT = async (request: Request, context: ApiContextProps) => {
     data: {
       name,
       description,
+      repositoryUrl,
       updatedAt: new Date(),
     },
   });

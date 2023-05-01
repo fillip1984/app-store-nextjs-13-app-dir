@@ -3,7 +3,11 @@ import { Application } from "@prisma/client";
 import ApplicationCard from "./ApplicationCard";
 
 async function getApplications() {
-  const applications = prisma.application.findMany();
+  const applications = prisma.application.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
   return applications;
 }
 

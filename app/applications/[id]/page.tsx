@@ -111,7 +111,25 @@ export default function ApplicationDetailPage(context: PageContextProps) {
             )}
           </div>
 
-          <div className="flex gap-2 my-2">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Repository</span>
+              <span className="label-text-alt">Optional</span>
+            </label>
+            <input
+              placeholder="Code repository url, example: https://github.com/fillip1984/app-store-nextjs-13-app-dir"
+              {...register("repositoryUrl")}
+              defaultValue={application?.repositoryUrl || ""}
+              className="textarea textarea-bordered"
+            />
+            {errors.repositoryUrl && (
+              <span className="label-text-alt text-red-400">
+                {errors.repositoryUrl.message}
+              </span>
+            )}
+          </div>
+
+          <div className="flex gap-2 mt-8">
             <button type="submit" className="btn btn-primary">
               Save
             </button>
