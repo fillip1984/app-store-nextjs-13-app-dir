@@ -15,7 +15,7 @@ const ApplicationList = async () => {
   const applications: Application[] = await getApplications();
 
   return (
-    <div className="flex flex-col gap-2 mt-2 mb-24">
+    <div className="flex flex-col gap-5 mt-8 mb-24">
       {applications.map((application) => (
         <ApplicationCard key={application.id} application={application} />
       ))}
