@@ -55,7 +55,7 @@ const SearchAdd = () => {
         </label> */}
         <button
           type="submit"
-          className={`btn btn-md btn-primary btn-outline ${isMutating} ? 'loading':''`}
+          className={`btn btn-primary text-primary-content ${isMutating} ? 'loading':''`}
           disabled={isPending}>
           Add
         </button>

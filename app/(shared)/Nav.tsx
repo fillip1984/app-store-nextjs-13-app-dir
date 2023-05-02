@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 import { MdOutlinePalette, MdOutlineSettings } from "react-icons/md";
@@ -24,8 +25,15 @@ const Nav = () => {
 
   return (
     <div className="bg-primary flex justify-between py-2 px-4 items-center">
-      <Link href="/" className="brand font-bold">
-        <h3>App Store</h3>
+      <Link href="/" className="brand font-bold flex flex-col items-center">
+        <Image
+          src="/images/favicon.png"
+          width={200}
+          height={200}
+          alt="App Store logo"
+          className="w-12 h-12"
+        />
+        <h3 className="text-primary-content">App Store</h3>
       </Link>
       <div className="nav-right flex gap-2">
         <Link href="/admin" className="btn btn-sm btn-accent">
