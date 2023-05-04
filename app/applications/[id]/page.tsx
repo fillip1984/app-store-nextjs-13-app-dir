@@ -102,7 +102,7 @@ export default function ApplicationDetailPage(context: PageContextProps) {
                   message: "Field must be 20 or more characters",
                 },
               })}
-              defaultValue={application?.description}
+              defaultValue={application?.description || ""}
             />
             {errors.description && (
               <span className="label-text-alt text-red-400">

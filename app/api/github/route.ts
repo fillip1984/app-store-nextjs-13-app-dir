@@ -6,10 +6,11 @@ const token = process.env.GIT_HUB_TOKEN;
 
 interface Repository {
   name: string;
+  description: string | null;
   url: string;
   visibility?: string;
   readme: string;
-  language: string;
+  language: string | null;
   languages?: Language[];
 }
 
@@ -25,9 +26,9 @@ export const GET = async () => {
 
   const repos = await octokit.rest.repos.listForAuthenticatedUser();
 
-  const repositories = await Promise.all(
+  const repositories: Repository[] = await Promise.all(
     repos.data.map(async (repo) => {
-      const { language, name, owner, html_url, visibility } = repo;
+      const { name, description, html_url, visibility, language, owner } = repo;
       let readme = "";
       let languages: Language[] = [];
 
@@ -67,14 +68,16 @@ export const GET = async () => {
         );
       }
 
-      return {
+      const newRepo: Repository = {
         name,
+        description,
         url: html_url,
         visibility,
         readme,
         language,
         languages,
       };
+      return newRepo;
     })
   );
 
@@ -83,7 +86,7 @@ export const GET = async () => {
       const newApp = await prisma.application.create({
         data: {
           name: repo.name,
-          description: repo.readme,
+          description: repo.description,
           repositoryUrl: repo.url,
         },
       });
