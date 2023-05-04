@@ -1,6 +1,10 @@
 # Application Store
 
-I have a tendency to bound around on projects and can't remember where I used some technique or some library. This tool will hopefully allow for me to document which applications I'm working on and more importantly what tech I'm using in each application.
+> An application store to showcase all of your projects and keep track of interesting things such as what frameworks you used, techniques you tried out, or lessons you learned while building them.
+
+## Rationale for building this application
+
+I have a tendency to bounce around on projects and can't remember where I used some technique or some library. This tool will hopefully allow for me to document which applications I'm working on and more importantly what tech I'm using in each application.
 
 ## Speaking of which
 
