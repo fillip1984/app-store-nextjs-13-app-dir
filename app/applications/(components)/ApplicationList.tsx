@@ -11,7 +11,7 @@ async function getApplications() {
   return applications;
 }
 
-const ApplicationList = async () => {
+export default async function ApplicationList() {
   const applications: Application[] = await getApplications();
 
   return (
@@ -21,6 +21,4 @@ const ApplicationList = async () => {
       ))}
     </div>
   );
-};
-
-export default ApplicationList;
+}

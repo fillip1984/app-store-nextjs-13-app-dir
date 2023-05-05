@@ -10,7 +10,7 @@ interface ApplicationCardProps {
   application: Application;
 }
 
-const ApplicationCard = ({ application }: ApplicationCardProps) => {
+export default function ApplicationCard({ application }: ApplicationCardProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isFetching, setIsFetching] = useState(false);
@@ -56,6 +56,4 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
       </div>
     </Link>
   );
-};
-
-export default ApplicationCard;
+}

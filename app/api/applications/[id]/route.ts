@@ -6,7 +6,7 @@ interface ApiContextProps {
   params: { id: string };
 }
 
-export const GET = async (request: Request, context: ApiContextProps) => {
+export async function GET(request: Request, context: ApiContextProps) {
   const { id } = context.params;
   const result = await prisma.application.findFirst({
     where: {
@@ -14,9 +14,9 @@ export const GET = async (request: Request, context: ApiContextProps) => {
     },
   });
   return NextResponse.json(result);
-};
+}
 
-export const PUT = async (request: Request, context: ApiContextProps) => {
+export async function PUT(request: Request, context: ApiContextProps) {
   const { id } = context.params;
   const { name, description, repositoryUrl }: Partial<Application> =
     await request.json();
@@ -32,9 +32,9 @@ export const PUT = async (request: Request, context: ApiContextProps) => {
     },
   });
   return NextResponse.json(result);
-};
+}
 
-export const DELETE = async (request: Request, context: ApiContextProps) => {
+export async function DELETE(request: Request, context: ApiContextProps) {
   const { id } = context.params;
   const result = await prisma.application.delete({
     where: {
@@ -42,4 +42,4 @@ export const DELETE = async (request: Request, context: ApiContextProps) => {
     },
   });
   return NextResponse.json({ message: "deleted" });
-};
+}

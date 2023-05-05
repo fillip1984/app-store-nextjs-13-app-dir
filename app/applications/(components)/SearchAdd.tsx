@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState, useTransition } from "react";
 import { createApplication } from "../../api/(client)/ApplicationApi";
 
-const SearchAdd = () => {
+export default function SearchAdd() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isFetching, setIsFetching] = useState(false);
@@ -62,6 +62,4 @@ const SearchAdd = () => {
       </div>
     </form>
   );
-};
-
-export default SearchAdd;
+}

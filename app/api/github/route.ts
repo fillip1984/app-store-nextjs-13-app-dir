@@ -19,7 +19,7 @@ interface Language {
   linesOfCode: number;
 }
 
-export const GET = async () => {
+export async function GET() {
   const octokit = new Octokit({ auth: token });
   // See: https://docs.github.com/en/rest/reference
   // Also see: https://octokit.github.io/rest.js/v19#usage
@@ -97,4 +97,4 @@ export const GET = async () => {
   }
 
   return NextResponse.json(repositories);
-};
+}

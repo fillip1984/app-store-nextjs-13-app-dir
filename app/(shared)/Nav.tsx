@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { MdOutlinePalette, MdOutlineSettings } from "react-icons/md";
 import { useLocalStorage } from "usehooks-ts";
 
-const Nav = () => {
+export default function Nav() {
   const availableThemes = ["aqua", "cupcake", "dark"];
   //   const [theme, setTheme] = useState("aqua");
   const [theme, setTheme] = useLocalStorage("theme", "aqua");
@@ -45,6 +45,4 @@ const Nav = () => {
       </div>
     </div>
   );
-};
-
-export default Nav;
+}

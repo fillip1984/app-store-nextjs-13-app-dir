@@ -1,8 +1,7 @@
-import React from "react";
-import SearchAdd from "./(components)/SearchAdd";
 import ApplicationList from "./(components)/ApplicationList";
+import SearchAdd from "./(components)/SearchAdd";
 
-const ApplicationHomePage = () => {
+export default function ApplicationHomePage() {
   return (
     <div className="container p-4 mx-auto">
       <h4>Applications</h4>
@@ -12,6 +11,4 @@ const ApplicationHomePage = () => {
       <ApplicationList />
     </div>
   );
-};
-
-export default ApplicationHomePage;
+}
