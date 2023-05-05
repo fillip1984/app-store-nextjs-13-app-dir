@@ -45,7 +45,7 @@ export async function GET() {
 
         readme = renderedMarkdown.data;
       } catch (error) {
-        console.log("repo: " + name + " did not have a readme");
+        console.error("repo: " + name + " did not have a readme");
       }
 
       // TODO: get and map languages (separate to own function)
@@ -63,7 +63,7 @@ export async function GET() {
           }
         );
       } catch (error) {
-        console.log(
+        console.error(
           "repo: " + name + " had an error while figuring out languages"
         );
       }
@@ -90,10 +90,9 @@ export async function GET() {
           repositoryUrl: repo.url,
         },
       });
-      console.log("created app: " + newApp.name);
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error while committing repo to db", error);
   }
 
   return NextResponse.json(repositories);

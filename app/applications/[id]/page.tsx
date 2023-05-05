@@ -22,7 +22,6 @@ export default function ApplicationDetailPage(context: PageContextProps) {
   const id = context.params.id;
 
   useEffect(() => {
-    console.log("fetching data");
     setLoading(true);
     getApplication(id)
       .then((res) => res.json())

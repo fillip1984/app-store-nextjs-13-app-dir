@@ -10,10 +10,6 @@ export default function AdminLayout({
 }) {
   const segment = useSelectedLayoutSegment();
 
-  //   const segments = useSelectedLayoutSegments();
-  console.log("segment", segment);
-  //   console.log("segments", segments);
-
   const adminLocations = [
     {
       label: "Categories",
@@ -24,8 +20,6 @@ export default function AdminLayout({
       href: "/admin/applications",
     },
   ];
-
-  console.log("/admin/" + segment === adminLocations[0].href);
 
   return (
     <>

@@ -33,7 +33,6 @@ export async function updateApplication(application: Application) {
 
 //delete
 export async function deleteApplication(id: string) {
-  console.log("id", id);
   const result = await fetch(`/api/applications/${id}`, {
     method: "DELETE",
   });
