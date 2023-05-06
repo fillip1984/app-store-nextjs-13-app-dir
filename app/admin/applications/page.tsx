@@ -10,14 +10,16 @@ import { useState, useTransition } from "react";
 export default function AdminApplicationPage() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const [isFetching, setIsFetching] = useState(false);
-  const isMutating = isFetching || isPending;
+  const [isLoadingFromGithub, setLoadingFromGithub] = useState(false);
+  const [isDeleting, setDeleting] = useState(false);
+  // const [isFetching, setIsFetching] = useState(false);
+  const isMutating = isLoadingFromGithub || isDeleting;
 
   const handleLoad = async () => {
     // TODO: update as mutation RFC gets released: https://beta.nextjs.org/docs/data-fetching/mutating
-    setIsFetching(true);
+    setLoadingFromGithub(true);
     const response = await loadApplicationsFromGitHub();
-    setIsFetching(false);
+    setLoadingFromGithub(false);
 
     startTransition(() => {
       router.refresh();
@@ -25,9 +27,9 @@ export default function AdminApplicationPage() {
   };
   const handleDelete = async () => {
     // TODO: update as mutation RFC gets released: https://beta.nextjs.org/docs/data-fetching/mutating
-    setIsFetching(true);
+    setDeleting(true);
     const response = await deleteAllApplications();
-    setIsFetching(false);
+    setDeleting(false);
 
     startTransition(() => {
       router.refresh();
@@ -38,14 +40,14 @@ export default function AdminApplicationPage() {
     <div className="flex flex-col p-4 gap-4">
       <button
         onClick={handleLoad}
-        className={`btn btn-primary ${isMutating ? "loading" : ""}`}
-        disabled={isPending}>
+        className={`btn btn-primary ${isLoadingFromGithub ? "loading" : ""}`}
+        disabled={isMutating}>
         Load all
       </button>
       <button
         onClick={handleDelete}
-        className={`btn btn-danger ${isMutating ? "loading" : ""}`}
-        disabled={isPending}>
+        className={`btn btn-danger ${isDeleting ? "loading" : ""}`}
+        disabled={isMutating}>
         Delete all
       </button>
     </div>
