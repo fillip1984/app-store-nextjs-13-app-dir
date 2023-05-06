@@ -9,7 +9,7 @@ interface Repository {
   description: string | null;
   url: string;
   visibility?: string;
-  readme: string;
+  readme?: string;
   language: string | null;
   languages?: Language[];
 }
@@ -30,24 +30,25 @@ export async function GET() {
   const repositories: Repository[] = await Promise.all(
     repos.data.map(async (repo) => {
       const { name, description, html_url, visibility, language, owner } = repo;
-      let readme = "";
+      // TODO: add back someplace when it makes sense, was taking too long
+      //let readme = "";
       let languages: Language[] = [];
 
       // TODO: get and render markdown (separate to own function)
-      try {
-        const readmeRaw = await octokit.rest.repos.getReadme({
-          owner: owner.login,
-          repo: name,
-        });
+      // try {
+      //   const readmeRaw = await octokit.rest.repos.getReadme({
+      //     owner: owner.login,
+      //     repo: name,
+      //   });
 
-        const renderedMarkdown = await octokit.rest.markdown.render({
-          text: Buffer.from(readmeRaw.data.content, "base64").toString(),
-        });
+      //   const renderedMarkdown = await octokit.rest.markdown.render({
+      //     text: Buffer.from(readmeRaw.data.content, "base64").toString(),
+      //   });
 
-        readme = renderedMarkdown.data;
-      } catch (error) {
-        console.error("repo: " + name + " did not have a readme");
-      }
+      //   readme = renderedMarkdown.data;
+      // } catch (error) {
+      //   console.error("repo: " + name + " did not have a readme");
+      // }
 
       // TODO: get and map languages (separate to own function)
       try {
@@ -74,7 +75,7 @@ export async function GET() {
         description,
         url: html_url,
         visibility,
-        readme,
+        // readme,
         language,
         languages,
       };
