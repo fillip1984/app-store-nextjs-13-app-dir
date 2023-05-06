@@ -1,4 +1,5 @@
 import { Application } from "@prisma/client";
+import { log } from "console";
 
 //crrud
 //create
@@ -37,4 +38,18 @@ export async function deleteApplication(id: string) {
     method: "DELETE",
   });
   return (await result.json()) as boolean;
+}
+
+/////specialized
+export async function loadApplicationsFromGitHub() {
+  const result = await fetch("/api/github");
+  return await result.json();
+}
+
+export async function deleteAllApplications() {
+  const result = await fetch("/api/applications", {
+    method: "DELETE",
+  });
+  const count = await result.json();
+  console.log(count);
 }

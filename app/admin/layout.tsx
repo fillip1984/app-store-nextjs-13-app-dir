@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
+import {
+  useSelectedLayoutSegment,
+  useSelectedLayoutSegments,
+} from "next/navigation";
 
 export default function AdminLayout({
   children,
@@ -12,25 +15,25 @@ export default function AdminLayout({
 
   const adminLocations = [
     {
-      label: "Categories",
-      href: "/admin/categories",
-    },
-    {
       label: "Applications",
       href: "/admin/applications",
+    },
+    {
+      label: "Categories",
+      href: "/admin/categories",
     },
   ];
 
   return (
     <>
-      <div className="flex gap-2 p-4">
+      <div className="flex text-primary justify-around text-xl bg-accent p-4">
         {adminLocations.map((adminLocation) => (
           <Link
             key={adminLocation.label}
             href={adminLocation.href}
             className={`${
-              "/admin/" + segment === adminLocation.href
-                ? "underline text-primary-content"
+              segment === adminLocation.href.replace("/admin/", "")
+                ? "border-b-2 border-primary-content text-primary-content"
                 : ""
             }`}>
             {adminLocation.label}

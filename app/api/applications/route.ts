@@ -24,3 +24,10 @@ export async function GET() {
   });
   return NextResponse.json(result);
 }
+
+export async function DELETE() {
+  console.log("deleting all apps");
+  const result = await prisma.application.deleteMany({});
+  console.log("deleted all apps, %s apps remain", result.count);
+  return NextResponse.json(result);
+}

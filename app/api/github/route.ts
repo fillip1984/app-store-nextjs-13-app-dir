@@ -20,6 +20,7 @@ interface Language {
 }
 
 export async function GET() {
+  console.log("Loading apps from github");
   const octokit = new Octokit({ auth: token });
   // See: https://docs.github.com/en/rest/reference
   // Also see: https://octokit.github.io/rest.js/v19#usage
@@ -95,5 +96,6 @@ export async function GET() {
     console.error("Error while committing repo to db", error);
   }
 
+  console.log("Loaded %s apps from github", repositories.length);
   return NextResponse.json(repositories);
 }
