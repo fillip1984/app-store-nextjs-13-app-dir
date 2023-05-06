@@ -55,7 +55,9 @@ export default function SearchAdd() {
         </label> */}
         <button
           type="submit"
-          className={`btn btn-primary text-primary-content ${isMutating} ? 'loading':''`}
+          className={`btn btn-primary text-primary-content ${
+            isMutating ? "loading" : ""
+          }`}
           disabled={isPending}>
           Add
         </button>

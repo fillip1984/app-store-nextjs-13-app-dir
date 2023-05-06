@@ -51,5 +51,4 @@ export async function deleteAllApplications() {
     method: "DELETE",
   });
   const count = await result.json();
-  console.log(count);
 }
