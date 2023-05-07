@@ -21,7 +21,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Nav />
-        {children}
+        <main className="mt-24">{children}</main>
       </body>
     </html>
   );

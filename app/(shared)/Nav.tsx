@@ -24,25 +24,27 @@ export default function Nav() {
   };
 
   return (
-    <div className="bg-primary flex justify-between py-2 px-4 items-center">
-      <Link href="/" className="brand font-bold flex flex-col items-center">
-        <Image
-          src="/images/favicon.png"
-          width={200}
-          height={200}
-          alt="App Store logo"
-          className="w-12 h-12"
-        />
-        <h3 className="text-primary-content">App Store</h3>
-      </Link>
-      <div className="nav-right flex gap-2">
-        <Link href="/admin" className="btn btn-sm btn-accent">
-          <MdOutlineSettings size={28} />
+    <nav className="fixed top-0 right-0 left-0 z-[999]">
+      <div className="bg-primary flex justify-between py-2 px-4 items-center">
+        <Link href="/" className="brand font-bold flex flex-col items-center">
+          <Image
+            src="/images/favicon.png"
+            width={200}
+            height={200}
+            alt="App Store logo"
+            className="w-12 h-12"
+          />
+          <h3 className="text-primary-content">App Store</h3>
         </Link>
-        <button onClick={handleThemeChange} className="btn btn-sm">
-          <MdOutlinePalette size={28} />
-        </button>
+        <div className="nav-right flex gap-2">
+          <Link href="/admin" className="btn btn-sm btn-accent">
+            <MdOutlineSettings size={28} />
+          </Link>
+          <button onClick={handleThemeChange} className="btn btn-sm">
+            <MdOutlinePalette size={28} />
+          </button>
+        </div>
       </div>
-    </div>
+    </nav>
   );
 }
