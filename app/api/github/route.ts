@@ -1,6 +1,7 @@
 import { prisma } from "@/prisma/globalPrismaClient";
 import { NextResponse } from "next/server";
 import { Octokit } from "octokit";
+import { getOrCreateUncategorized } from "../applications/route";
 
 const token = process.env.GIT_HUB_TOKEN;
 
@@ -83,13 +84,23 @@ export async function GET() {
     })
   );
 
+  const uncategorized = await getOrCreateUncategorized();
+
   try {
     repositories.forEach(async (repo) => {
       const newApp = await prisma.application.create({
         data: {
           name: repo.name,
-          description: repo.description,
+          description:
+            repo.description ||
+            "Add a description to help describe the application",
           repositoryUrl: repo.url,
+          status: "BACKLOG",
+          category: {
+            connect: {
+              id: uncategorized.id,
+            },
+          },
         },
       });
     });

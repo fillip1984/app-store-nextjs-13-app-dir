@@ -7,12 +7,19 @@ async function getApplications() {
     orderBy: {
       name: "asc",
     },
+    include: {
+      category: {
+        select: {
+          name: true,
+        },
+      },
+    },
   });
   return applications;
 }
 
 export default async function ApplicationList() {
-  const applications: Application[] = await getApplications();
+  const applications = await getApplications();
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 mt-8 mb-24">

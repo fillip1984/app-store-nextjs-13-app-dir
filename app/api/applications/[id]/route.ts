@@ -18,17 +18,28 @@ export async function GET(request: Request, context: ApiContextProps) {
 
 export async function PUT(request: Request, context: ApiContextProps) {
   const { id } = context.params;
-  const { name, description, repositoryUrl }: Partial<Application> =
-    await request.json();
+  const {
+    name,
+    description,
+    repositoryUrl,
+    status,
+    categoryId,
+  }: Partial<Application> = await request.json();
   const result = await prisma.application.update({
     where: {
       id,
     },
     data: {
+      updatedAt: new Date(),
       name,
       description,
       repositoryUrl,
-      updatedAt: new Date(),
+      status,
+      category: {
+        connect: {
+          id: categoryId,
+        },
+      },
     },
   });
   return NextResponse.json(result);

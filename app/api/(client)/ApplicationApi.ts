@@ -12,15 +12,21 @@ export async function createApplication(application: Partial<Application>) {
 }
 
 //read all
-export async function getApplications() {
+export async function getApplications(): Promise<
+  Application & {
+    category: {
+      name: string;
+    };
+  }
+> {
   const result = await fetch("/api/applications");
-  return (await result.json()) as Application[];
+  return await result.json();
 }
 
 //read one
 export async function getApplication(id: string) {
   const result = await fetch(`/api/applications/${id}`);
-  return result;
+  return await result.json();
 }
 
 //update

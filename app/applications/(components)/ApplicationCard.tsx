@@ -5,9 +5,15 @@ import { Application } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState, useTransition } from "react";
+import { BiCategory, BiInfinite } from "react-icons/bi";
+import { BsTextLeft } from "react-icons/bs";
 
 interface ApplicationCardProps {
-  application: Application;
+  application: Application & {
+    category: {
+      name: string;
+    };
+  };
 }
 
 export default function ApplicationCard({ application }: ApplicationCardProps) {
@@ -43,8 +49,19 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
       href={`/applications/${application.id}`}
       className="card bg-base-300 shadow-xl">
       <div className="card-body">
-        <h4 className="card-title">{application.name}</h4>
-        <p>{application.description}</p>
+        <h3>{application.name}</h3>
+        <p className="flex items-center gap-2">
+          <BiInfinite className="text-xl" />
+          {application.status}
+        </p>
+        <p className="flex items-center gap-2">
+          <BiCategory className="text-xl" />
+          {application.category?.name}
+        </p>
+        <p className="flex items-start gap-2">
+          <BsTextLeft className="text-xl flex-shrink-0" />
+          {application.description}
+        </p>
         <div className="card-actions justify-end">
           <button
             onClick={handleDelete}

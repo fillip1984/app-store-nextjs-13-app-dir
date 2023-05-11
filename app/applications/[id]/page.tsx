@@ -4,7 +4,9 @@ import {
   getApplication,
   updateApplication,
 } from "@/app/api/(client)/ApplicationApi";
-import { Application } from "@prisma/client";
+import { getCategories } from "@/app/api/(client)/CategoryApi";
+import { Application, Category } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
@@ -18,19 +20,24 @@ interface PageContextProps {
 
 export default function ApplicationDetailPage(context: PageContextProps) {
   const [application, setApplication] = useState<Application | null>(null);
+  const [categories, setCategories] = useState<Category[] | null>(null);
   const [isLoading, setLoading] = useState(true);
   const id = context.params.id;
 
   useEffect(() => {
-    setLoading(true);
-    getApplication(id)
-      .then((res) => res.json())
-      .then((data) => {
-        setApplication(data);
-        setLoading(false);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const initializeState = async () => {
+      setLoading(true);
+      const application = await getApplication(id);
+      setApplication(application);
+
+      const categories = await getCategories();
+      setCategories(categories);
+
+      setLoading(false);
+    };
+
+    initializeState();
+  }, [id]);
 
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -124,6 +131,49 @@ export default function ApplicationDetailPage(context: PageContextProps) {
             {errors.repositoryUrl && (
               <span className="label-text-alt text-red-400">
                 {errors.repositoryUrl.message}
+              </span>
+            )}
+          </div>
+
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Status</span>
+            </label>
+            <select
+              className="select select-bordered"
+              {...register("status", { required: "Field is required" })}
+              defaultValue={application?.status}>
+              <option value=""></option>
+              <option value="BACKLOG">Backlog</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="COMPLETE">Complete</option>
+              <option value="ABANDONED">Abandoned</option>
+            </select>
+            {errors.status && (
+              <span className="label-text-alt text-red-400">
+                {errors.status.message}
+              </span>
+            )}
+          </div>
+
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Category</span>
+            </label>
+            <select
+              className="select select-bordered"
+              {...register("categoryId", { required: "Field is required" })}
+              defaultValue={application?.categoryId}>
+              <option value=""></option>
+              {categories?.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            {errors.categoryId && (
+              <span className="label-text-alt text-red-400">
+                {errors.categoryId.message}
               </span>
             )}
           </div>
