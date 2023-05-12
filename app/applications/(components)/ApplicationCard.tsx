@@ -62,14 +62,14 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
           <BsTextLeft className="text-xl flex-shrink-0" />
           {application.description}
         </p>
-        <div className="card-actions justify-end">
+        {/* <div className="card-actions justify-end">
           <button
             onClick={handleDelete}
             className={`btn btn-danger ${isMutating ? "loading" : ""}`}
             disabled={isPending}>
             Delete
           </button>
-        </div>
+        </div> */}
       </div>
     </Link>
   );

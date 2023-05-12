@@ -25,7 +25,7 @@ model Application {
   name          String
   description   String   @default("Add a description to help describe the application")
   repositoryUrl String?
-  status        String   @default("BACKLOG")
+  status        Status   @default(BACKLOG)
   category      Category @relation(fields: [categoryId], references: [id])
   categoryId    String
 }
@@ -39,10 +39,10 @@ model Category {
   Application Application[]
 }
 
-// TODO not supported by SQLite
-// enum Status {
-// BACKLOG
-// IN_PROGRESS
-// COMPLETE
-// ABANDONED
-// }
+// not supported by SQLite
+enum Status {
+  BACKLOG
+  IN_PROGRESS
+  COMPLETE
+  ABANDONED
+}

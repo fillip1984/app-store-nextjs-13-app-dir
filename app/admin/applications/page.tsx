@@ -42,7 +42,7 @@ export default function AdminApplicationPage() {
         onClick={handleLoad}
         className={`btn btn-primary ${isLoadingFromGithub ? "loading" : ""}`}
         disabled={isMutating}>
-        Load all
+        Load from Github
       </button>
       <button
         onClick={handleDelete}

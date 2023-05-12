@@ -1,3 +1,4 @@
+import { Application } from "@prisma/client";
 import ApplicationList from "./(components)/ApplicationList";
 import SearchAdd from "./(components)/SearchAdd";
 
